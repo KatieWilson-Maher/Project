@@ -3,9 +3,6 @@ package gradedexercise;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Arrays;
-import java.util.List;
-
-
 
 /**The GradedExercise class contains methods for linear search, binary search, selection sort, insertion sort, splitting a list, and a main method containing tests of the other methods.
  * 
