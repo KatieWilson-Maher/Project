@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 /**The GradedExercise class contains methods for linear search, binary search, selection sort, insertion sort, splitting a list, and a main method containing tests of the other methods.
  * 
  * @author katie
@@ -24,6 +26,14 @@ import java.util.List;
  * minimum (first element of the ArrayList, second element of the original ArrayList) with the next element and replacing it as smaller numbers 
  * are found once the new list contains as many elements as the original list did, the while-loop breaks and the method returns the new sorted 
  * list.
+ * 
+ * The merge method combines two given ArrayLists into one using a for-loop to add each element individually. This method is meant to be used in 
+ * mergeSort.
+ * 
+ * The mergeSort method is supposed to sort a given ArrayList using merge sort. I worked on it for hours but could not get this method to work. 
+ * I have a hard time understanding recursion. Fortunately the point of this project is not to write perfect algorithms, although mine would
+ * ideally at least work. I think the important thing is that I am now far more familiar with GitHub and java-doc now, and I learned more about
+ * the language itself along the way.
  * 
  * The insertion sort method starts with the first two elements of the ArrayList and swaps them if they are not in ascending order. If they are 
  * in order, the method moves on to the next two elements. Each time the elements are swapped and it's not the first iteration through the
@@ -115,49 +125,77 @@ public class GradedExercise {
         return newList;
     }
 
+    /**merge combines two given ArrayLists into one.
+     * 
+     * @param list1 first ArrayList to be merged.
+     * @param list2 second ArrayList to be merged.
+     * @return list1 - ArrayList with the elements of list1 and list2.
+     */
+    public static ArrayList merge(ArrayList list1, ArrayList list2){
+        int size = list2.size();
+        for (int i = 0; i < size; i++){
+            list1.add(list2.get(i));
+        }
+        return list1;
+    }
     
-    
-    public static ArrayList mergeSort(ArrayList list) {
-
-        int size = list.size();
-        ArrayList returnValue;
+    /**mergeSort sorts a given ArrayList using merge sort.
+     * 
+     * @param list ArrayList to be sorted.
+     * @return newList - sorted ArrayList
+     */
+    public static ArrayList mergeSort(ArrayList list){ //This method does not work.
         ArrayList<Integer> firstHalf = new ArrayList<>();
         ArrayList<Integer> secondHalf = new ArrayList<>();
-        ArrayList<Integer> sortedList = new ArrayList<>();
+        int size = list.size();
+        ArrayList<Integer> newList = new ArrayList<>();
+        ArrayList returnValue;
         if (size == 1){
-            return sortedList;
+            returnValue = list;
         }
-        firstHalf.addAll(list.subList(0, size/2));
-        secondHalf.addAll(list.subList(size/2, size));
-        //firstHalf = list.subList(0, size/2);
-        //secondHalf = (ArrayList) list.subList(size/2+1, size-1);
-        ArrayList<Integer> firstHalfSorted = new ArrayList<>();
-        ArrayList<Integer> secondHalfSorted = new ArrayList<>();
-        firstHalfSorted.addAll(mergeSort(firstHalf));
-        secondHalfSorted.addAll(mergeSort(secondHalf));
-        while ((firstHalfSorted.size() > 0) && (secondHalfSorted.size() > 0)){
-            if ((int)firstHalfSorted.get(0) < (int)secondHalfSorted.get(0)){
-                sortedList.add((int) firstHalfSorted.get(0));
-                firstHalfSorted.remove(0);
-            }
-            else {
-                sortedList.add((int) secondHalfSorted.get(0));
-                secondHalfSorted.remove(0);
-            }
-        }
-        while (firstHalfSorted.size() > 0){
-            sortedList.add((int) firstHalfSorted.get(0));
-            firstHalfSorted.remove(0);
-        }
-        
-        while (secondHalfSorted.size() > 0){
-            sortedList.add((int)secondHalfSorted.get(0));
-            secondHalfSorted.remove(0);
-        }
-          System.out.println("firstHalf: "+firstHalf+" secondHalf: "+secondHalf+" sortedList: "+sortedList+" firstHalfSorted: "+firstHalfSorted+" secondHalfSorted: "+secondHalfSorted);
-    return sortedList;
-    }    
-
+        firstHalf = splitList(firstHalf);
+        secondHalf = splitList(secondHalf);
+        return newList;
+//        int size = list.size();
+//        ArrayList returnValue;
+//        ArrayList<Integer> firstHalf = new ArrayList<>();
+//        ArrayList<Integer> secondHalf = new ArrayList<>();
+//        ArrayList<Integer> sortedList = new ArrayList<>();
+//        if (size == 1){
+//            return sortedList;
+//        }
+//        firstHalf.addAll(list.subList(0, size/2));
+//        secondHalf.addAll(list.subList(size/2, size));
+//        //firstHalf = list.subList(0, size/2);
+//        //secondHalf = (ArrayList) list.subList(size/2+1, size-1);
+//        ArrayList<Integer> firstHalfSorted = new ArrayList<>();
+//        ArrayList<Integer> secondHalfSorted = new ArrayList<>();
+//        firstHalfSorted.addAll(mergeSort(firstHalf));
+//        secondHalfSorted.addAll(mergeSort(secondHalf));
+//        while ((firstHalfSorted.size() > 0) && (secondHalfSorted.size() > 0)){
+//            if ((int)firstHalfSorted.get(0) < (int)secondHalfSorted.get(0)){
+//                sortedList.add((int) firstHalfSorted.get(0));
+//                firstHalfSorted.remove(0);
+//            }
+//            else {
+//                sortedList.add((int) secondHalfSorted.get(0));
+//                secondHalfSorted.remove(0);
+//            }
+//        }
+//        while (firstHalfSorted.size() > 0){
+//            sortedList.add((int) firstHalfSorted.get(0));
+//            firstHalfSorted.remove(0);
+//        }
+//        
+//        while (secondHalfSorted.size() > 0){
+//            sortedList.add((int)secondHalfSorted.get(0));
+//            secondHalfSorted.remove(0);
+//        }
+//          System.out.println("firstHalf: "+firstHalf+" secondHalf: "+secondHalf+" sortedList: "+sortedList+" firstHalfSorted: "+firstHalfSorted+" secondHalfSorted: "+secondHalfSorted);
+//    return sortedList;
+//    }
+    }      
+      
     /**
     *insertionSort performs the insertion sort method on an ArrayList
      * 
@@ -229,14 +267,14 @@ public class GradedExercise {
         ArrayList<Integer> selectionSortList = new ArrayList<>( Arrays.asList(9,5,7,2,10,1,3));
         System.out.println(selectionSort(selectionSortList));
         
-        //ArrayList<Integer> mergeSortList = new ArrayList<>( Arrays.asList(90,2,1,0,6,3,8));
-        //System.out.print("mergeSort: ");
-       // mergeSort(mergeSortList);
+        ArrayList<Integer> mergeSortList = new ArrayList<>( Arrays.asList(9,5,7,2,10,1,3,4));
+        System.out.println(mergeSort(mergeSortList));
+
+        ArrayList<Integer> list1 = new ArrayList<>( Arrays.asList(9,5,7));
+        ArrayList<Integer> list2 = new ArrayList<>( Arrays.asList(2,6,4));
+        System.out.println(merge(list1,list2));
         
         ArrayList<Integer> insertionSortList = new ArrayList<>( Arrays.asList(90,2,1,0,6,3,8));
-       // System.out.println(insertionSort(insertionSortList));
-        
-        
-
+        System.out.println(insertionSort(insertionSortList));
     }
 }
