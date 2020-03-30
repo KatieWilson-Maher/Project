@@ -275,3 +275,4 @@ public class GradedExercise {
         System.out.println(insertionSort(insertionSortList));
     }
 }
+
