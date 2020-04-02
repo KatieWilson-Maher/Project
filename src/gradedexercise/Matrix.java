@@ -13,6 +13,7 @@ public class Matrix {
     
     
     public Matrix(){
+        int[] a = new int[6] ;
         
     }
     
